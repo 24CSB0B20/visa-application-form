@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Visa Application Form</title>
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;600&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            font-family: 'Open Sans', sans-serif;
+            background: 
+                linear-gradient(rgba(255,0,0,0.1), rgba(255,0,0,0.1)),
+                url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="100" height="100" viewBox="0 0 100 100"><path d="M0 50 Q50 0, 100 50 T200 50" fill="none" stroke="%23FF0000" stroke-opacity="0.05" stroke-width="2"/></svg>');
+            background-color: #ffebee;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            padding: 20px;
+        }
+        .container {
+            background-color: white;
+            border-radius: 15px;
+            box-shadow: 0 20px 40px rgba(244,67,67,0.2);
+            padding: 40px;
+            width: 100%;
+            max-width: 500px;
+            border: 2px solid #f44336;
+        }
+        h2 {
+            text-align: center;
+            color: #d32f2f;
+            margin-bottom: 30px;
+            font-weight: 600;
+        }
+        .form-group {
+            margin-bottom: 20px;
+        }
+        input, select {
+            width: 100%;
+            padding: 12px;
+            border: 2px solid #f44336;
+            border-radius: 8px;
+            font-size: 16px;
+            transition: all 0.3s ease;
+            font-family: 'Open Sans', sans-serif;
+        }
+        input:focus, select:focus {
+            outline: none;
+            border-color: #d32f2f;
+            box-shadow: 0 0 0 3px rgba(244,67,67,0.2);
+        }
+        select {
+            appearance: none;
+            background: white url('data:image/svg+xml;utf8,<svg fill="%23f44336" height="24" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg"><path d="M7 10l5 5 5-5z"/><path d="M0 0h24v24H0z" fill="none"/></svg>') no-repeat right 15px center;
+            background-size: 30px;
+        }
+        button {
+            width: 100%;
+            padding: 12px;
+            background-color: #f44336;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-family: 'Open Sans', sans-serif;
+        }
+        button:hover {
+            background-color: #d32f2f;
+        }
+        #errorMessage {
+            text-align: center;
+            margin-top: 20px;
+            padding: 12px;
+            border-radius: 8px;
+            font-weight: 500;
+        }
+        .success {
+            background-color: #d32f2f;
+            color: white;
+        }
+        .error {
+            background-color: #ff1744;
+            color: white;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>Visa Application</h2>
+        <form id="visaForm">
+            <div class="form-group">
+                <input type="text" id="name" placeholder="Full Name" required>
+            </div>
+            <div class="form-group">
+                <input type="text" id="passport" placeholder="Passport Number" required>
+            </div>
+            <div class="form-group">
+                <select id="country" required>
+                    <option value="">Select Country</option>
+                    <option value="USA">USA</option>
+                    <option value="Canada">Canada</option>
+                    <option value="India">India</option>
+                    <option value="UK">UK</option>
+                    <option value="Australia">Australia</option>
+                </select>
+            </div>
+            <button type="button" onclick="submitVisa()">Apply for Visa</button>
+        </form>
+        <div id="errorMessage"></div>
+    </div>
+
+    <script>
+        function submitVisa() {
+            const name = document.getElementById('name');
+            const passport = document.getElementById('passport');
+            const country = document.getElementById('country');
+            const errorMessage = document.getElementById('errorMessage');
+
+            // Reset previous error messages
+            errorMessage.textContent = '';
+            errorMessage.classList.remove('success', 'error');
+
+            // Check if all fields are filled
+            if (!name.value || !passport.value || !country.value) {
+                errorMessage.textContent = "All fields are required!";
+                errorMessage.classList.add('error');
+                return;
+            }
+
+            // Validate passport number (8-10 characters)
+            if (passport.value.length < 8 || passport.value.length > 10) {
+                errorMessage.textContent = "Invalid passport number!";
+                errorMessage.classList.add('error');
+                return;
+            }
+
+            // If all validations pass
+            errorMessage.textContent = "Visa application submitted successfully!";
+            errorMessage.classList.add('success');
+        }
+    </script>
+</body>
+</html>
